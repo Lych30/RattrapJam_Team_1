@@ -11,9 +11,9 @@ public class Movements : MonoBehaviour
     public float jump;
     float longueurCheckJump = 1.1f;
     private bool canJump;
-    private Collider2D monCollider;
+    private BoxCollider2D monCollider;
 
-    private bool canSlide;
+    private bool canSlide = true;
     private bool IsSliding;
     private float slideTimerMax = 2f;
     private float slideTimer;
@@ -27,7 +27,7 @@ public class Movements : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        monCollider = gameObject.GetComponent<Collider2D>();
+        monCollider = gameObject.GetComponent<BoxCollider2D>();
         Physics2D.queriesStartInColliders = false;
     }
 
@@ -45,16 +45,10 @@ public class Movements : MonoBehaviour
 
 
         //SLIDE
-        if(Input.GetKey(KeyCode.LeftControl) && slideTimer > 0f && canSlide)
-        {
-            slideTimer -= Time.deltaTime;
-            IsSliding = true;
+        if(Input.GetKeyDown(KeyCode.LeftControl) && canSlide)
+        {  
             sr.color = new Color(255, 0, 0);
-        }
-        else
-        {
-            IsSliding = false;
-            sr.color = new Color(255, 255, 255);
+            StartCoroutine(Slide());
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -63,6 +57,8 @@ public class Movements : MonoBehaviour
         }
 
     }
+
+    //SLIDE CODE
     IEnumerator SlideCooldown()
     {
         canSlide = false;
@@ -70,6 +66,20 @@ public class Movements : MonoBehaviour
         slideTimer = slideTimerMax;
         canSlide = true;
     }
+    IEnumerator Slide()
+    {
+        IsSliding = true;
+        float y = monCollider.size.y;
+        monCollider.size = new Vector2(monCollider.size.x, monCollider.size.y / 2);
+        monCollider.offset = new Vector2(0, -0.04f);
+        yield return new WaitForSeconds(1f);
+        IsSliding = false;
+        sr.color = new Color(255, 255, 255);
+        monCollider.size = new Vector2(monCollider.size.x, y);
+        monCollider.offset = new Vector2(0, 0);
+        canSlide = true;
+    }
+
     void jumpCheck()
     {
         RaycastHit2D hit;

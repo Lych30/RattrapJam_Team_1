@@ -19,10 +19,10 @@ public class TornadoMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position,Player.position)> 12)
-            rb.velocity = new Vector2(10, 0);
+        //if(Vector3.Distance(transform.position,Player.position)> 12)
+            rb.velocity = new Vector2(9.8f, 0);
 
-        if (Vector3.Distance(transform.position, Player.position) < 12)
-            rb.velocity = new Vector2(5, 0);
+        //if (Vector3.Distance(transform.position, Player.position) < 12)
+           // rb.velocity = new Vector2(5, 0);
     }
 }
