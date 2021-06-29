@@ -13,9 +13,19 @@ public class Movements : MonoBehaviour
     private bool canJump;
     private Collider2D monCollider;
 
+    private bool canSlide;
+    private bool IsSliding;
+    private float slideTimerMax = 2f;
+    private float slideTimer;
+
+    private SpriteRenderer sr;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         monCollider = gameObject.GetComponent<Collider2D>();
         Physics2D.queriesStartInColliders = false;
@@ -26,12 +36,39 @@ public class Movements : MonoBehaviour
     {
         rb.velocity = new Vector2(speed, rb.velocity.y);
 
-        if (Input.GetButton("Jump") && canJump)
+        //JUMP
+        if (Input.GetButton("Jump") && canJump && !IsSliding)
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
         jumpCheck();
 
+
+        //SLIDE
+        if(Input.GetKey(KeyCode.LeftControl) && slideTimer > 0f && canSlide)
+        {
+            slideTimer -= Time.deltaTime;
+            IsSliding = true;
+            sr.color = new Color(255, 0, 0);
+        }
+        else
+        {
+            IsSliding = false;
+            sr.color = new Color(255, 255, 255);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            IsSliding = false;
+            StartCoroutine(SlideCooldown());
+        }
+
+    }
+    IEnumerator SlideCooldown()
+    {
+        canSlide = false;
+        yield return new WaitForSeconds(1f);
+        slideTimer = slideTimerMax;
+        canSlide = true;
     }
     void jumpCheck()
     {
@@ -50,5 +87,6 @@ public class Movements : MonoBehaviour
 
         }
     }
+    
  
 }

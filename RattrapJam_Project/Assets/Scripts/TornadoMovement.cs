@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TornadoMovement : MonoBehaviour
 {
-    public Transform Player;
+    Transform Player;
     Vector2 refvelocity;
     Rigidbody2D rb;
     float y;
@@ -19,6 +19,10 @@ public class TornadoMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(5, 0);
+        if(Vector3.Distance(transform.position,Player.position)> 12)
+            rb.velocity = new Vector2(10, 0);
+
+        if (Vector3.Distance(transform.position, Player.position) < 12)
+            rb.velocity = new Vector2(5, 0);
     }
 }
