@@ -28,13 +28,16 @@ public class Movements : MonoBehaviour
     #endregion
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         monCollider = gameObject.GetComponent<BoxCollider2D>();
         Physics2D.queriesStartInColliders = false;
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+
+        //DEBUG
+        animator.SetTrigger("Start");
     }
 
     // Update is called once per frame
@@ -94,6 +97,7 @@ public class Movements : MonoBehaviour
 
     void jumpCheck()
     {
+        animator.SetFloat("VelocityY", rb.velocity.y);
         RaycastHit2D hit;
         hit = Physics2D.Raycast(transform.position, -Vector2.up, monCollider.bounds.extents.y * longueurCheckJump);
         Debug.DrawRay(transform.position, -Vector2.up * monCollider.bounds.extents.y * longueurCheckJump, Color.red);
@@ -122,6 +126,7 @@ public class Movements : MonoBehaviour
         Camera.main.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         invincible = true;
         speed *= 0.5f;
+        Debug.Log(sr);
         sr.color = new Color(0, 0, 0, 0);
         yield return new WaitForSeconds(0.3f);
         sr.color = new Color(255, 255, 255, 255);
