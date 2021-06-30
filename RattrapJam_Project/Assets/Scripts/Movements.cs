@@ -59,7 +59,6 @@ public class Movements : MonoBehaviour
         //SLIDE
         if(Input.GetKeyDown(KeyCode.LeftControl) && canSlide)
         {  
-            sr.color = new Color(255, 0, 0);
             StartCoroutine(Slide());
             
         }
@@ -88,7 +87,6 @@ public class Movements : MonoBehaviour
         monCollider.offset = new Vector2(0.006123053f, -0.09713551f);
         yield return new WaitForSeconds(1f);
         IsSliding = false;
-        sr.color = new Color(255, 255, 255);
         monCollider.size = new Vector2(0.05703655f, 0.183223f);
         monCollider.offset = new Vector2(0, -0.03731785f);
         canSlide = true;
