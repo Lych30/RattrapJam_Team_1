@@ -464,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6429744490646972085, guid: 8f2c898650a3f9c4e8692dec475d60dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.49
+      value: -23.66
       objectReference: {fileID: 0}
     - target: {fileID: 6429744490646972085, guid: 8f2c898650a3f9c4e8692dec475d60dc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -659,7 +659,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -734,8 +734,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643406809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41.5357, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.75562286, y: -1.6894783, z: 1}
+  m_LocalPosition: {x: 45.6, y: 0.02, z: 0}
+  m_LocalScale: {x: 9.0327635, y: -1.6894783, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -1255,6 +1255,7 @@ GameObject:
   - component: {fileID: 1273686843}
   - component: {fileID: 1273686845}
   - component: {fileID: 1273686844}
+  - component: {fileID: 1273686846}
   m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
@@ -1319,6 +1320,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273686842}
   m_CullTransparentMesh: 1
+--- !u!95 &1273686846
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273686842}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8ae8b196137adf34fbe5a326d265f5e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1278090658
 GameObject:
   m_ObjectHideFlags: 0
