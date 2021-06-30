@@ -13,7 +13,7 @@ public class Movements : MonoBehaviour
     float longueurCheckJump = 1.5f;
     public bool canJump;
     private BoxCollider2D monCollider;
-
+    private bool invincible;
     private float Multiplicateur;
 
     private bool canSlide = true;
@@ -102,13 +102,30 @@ public class Movements : MonoBehaviour
 
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("obstacle"))
+        if (collision.CompareTag("obstacle") && !invincible)
         {
-            Debug.Log("ouch");
-            rb.AddForce(new Vector2(-10, 0));
+            StartCoroutine(Hit());
         }
+    }
+    IEnumerator Hit()
+    {
+        invincible = true;
+        speed *= 0.5f;
+        sr.color = new Color(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.2f);
+        sr.color = new Color(255, 255, 255, 255);
+        yield return new WaitForSeconds(0.2f);
+        sr.color = new Color(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.2f);
+        sr.color = new Color(255, 255, 255, 255);
+        yield return new WaitForSeconds(0.2f);
+        sr.color = new Color(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.2f);
+        sr.color = new Color(255, 255, 255, 255);
+        speed *= 2;
+        invincible = false;
     }
 
 
