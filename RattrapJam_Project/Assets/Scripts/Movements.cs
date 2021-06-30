@@ -80,9 +80,13 @@ public class Movements : MonoBehaviour
     }
     IEnumerator Slide()
     {
+        float Initialgravity = rb.gravityScale;
+        if (!canJump)
+        {
+            rb.gravityScale *= 2;
+        }
         IsSliding = true;
         animator.SetBool("Sliding", true);
-
         monCollider.size = new Vector2(0.1106481f, 0.0633854f);
         monCollider.offset = new Vector2(0.006123053f, -0.09713551f);
         yield return new WaitForSeconds(1f);
@@ -90,6 +94,7 @@ public class Movements : MonoBehaviour
         monCollider.size = new Vector2(0.05703655f, 0.183223f);
         monCollider.offset = new Vector2(0, -0.03731785f);
         canSlide = true;
+        rb.gravityScale = Initialgravity;
         animator.SetBool("Sliding", false);
     }
 

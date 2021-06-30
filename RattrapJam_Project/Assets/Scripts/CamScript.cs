@@ -10,11 +10,12 @@ public class CamScript : MonoBehaviour
     private float initZ;
     private Vector2 refvel;
 
-    [SerializeField] GameObject player;
+    GameObject player;
     #endregion
 
     void Start()
     {
+        player = GameObject.Find("Player");
         initX = transform.position.x;
         initY = transform.position.y;
         initZ = transform.position.z;
