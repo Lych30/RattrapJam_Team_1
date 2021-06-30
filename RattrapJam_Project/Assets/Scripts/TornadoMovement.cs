@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TornadoMovement : MonoBehaviour
 {
+    public GameObject LoseUI;
     Transform Player;
     Vector2 refvelocity;
     Rigidbody2D rb;
@@ -24,5 +25,17 @@ public class TornadoMovement : MonoBehaviour
 
         //if (Vector3.Distance(transform.position, Player.position) < 12)
            // rb.velocity = new Vector2(5, 0);
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            LoseUI.SetActive(true);
+            Pause();
+        }
+    }
+    void Pause()
+    {
+        Time.timeScale = 0f;
     }
 }
