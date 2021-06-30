@@ -23,6 +23,8 @@ public class Movements : MonoBehaviour
     private float slideTimer;
 
     private SpriteRenderer sr;
+
+    private Animator animator;
     #endregion
 
     // Start is called before the first frame update
@@ -32,6 +34,7 @@ public class Movements : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         monCollider = gameObject.GetComponent<BoxCollider2D>();
         Physics2D.queriesStartInColliders = false;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -55,6 +58,7 @@ public class Movements : MonoBehaviour
         {  
             sr.color = new Color(255, 0, 0);
             StartCoroutine(Slide());
+            
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -75,7 +79,8 @@ public class Movements : MonoBehaviour
     IEnumerator Slide()
     {
         IsSliding = true;
-      
+        animator.SetBool("Sliding", true);
+
         monCollider.size = new Vector2(0.1106481f, 0.0633854f);
         monCollider.offset = new Vector2(0.006123053f, -0.09713551f);
         yield return new WaitForSeconds(1f);
@@ -84,6 +89,7 @@ public class Movements : MonoBehaviour
         monCollider.size = new Vector2(0.05703655f, 0.183223f);
         monCollider.offset = new Vector2(0, -0.03731785f);
         canSlide = true;
+        animator.SetBool("Sliding", false);
     }
 
     void jumpCheck()
@@ -95,12 +101,12 @@ public class Movements : MonoBehaviour
         if (hit.collider != null)
         {
             canJump = true;
-            
+            animator.SetBool("InJump", false);
         }
         else
         {
             canJump = false;
-
+            animator.SetBool("InJump", true);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -112,19 +118,20 @@ public class Movements : MonoBehaviour
     }
     IEnumerator Hit()
     {
+        animator.SetTrigger("Hit");
         Camera.main.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         invincible = true;
         speed *= 0.5f;
         sr.color = new Color(0, 0, 0, 0);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
+        sr.color = new Color(255, 255, 255, 255);
+        yield return new WaitForSeconds(0.3f);
+        sr.color = new Color(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.3f);
         sr.color = new Color(255, 255, 255, 255);
         yield return new WaitForSeconds(0.2f);
         sr.color = new Color(0, 0, 0, 0);
-        yield return new WaitForSeconds(0.2f);
-        sr.color = new Color(255, 255, 255, 255);
-        yield return new WaitForSeconds(0.2f);
-        sr.color = new Color(0, 0, 0, 0);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         sr.color = new Color(255, 255, 255, 255);
         speed *= 2;
         invincible = false;
