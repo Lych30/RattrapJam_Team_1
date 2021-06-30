@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
+
 
 
 public class Movements : MonoBehaviour
@@ -123,7 +123,6 @@ public class Movements : MonoBehaviour
     IEnumerator Hit()
     {
         animator.SetTrigger("Hit");
-        Camera.main.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         invincible = true;
         speed *= 0.5f;
         Debug.Log(sr);
