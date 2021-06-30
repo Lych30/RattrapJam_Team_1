@@ -15,7 +15,7 @@ public class Movements : MonoBehaviour
     public bool canJump;
     private BoxCollider2D monCollider;
     private bool invincible;
-    private float Multiplicateur;
+    public float Multiplicateur;
 
     private bool canSlide = true;
     private bool IsSliding;
