@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 
 public class Movements : MonoBehaviour
@@ -111,6 +112,7 @@ public class Movements : MonoBehaviour
     }
     IEnumerator Hit()
     {
+        Camera.main.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         invincible = true;
         speed *= 0.5f;
         sr.color = new Color(0, 0, 0, 0);
