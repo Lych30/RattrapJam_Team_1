@@ -5,20 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public static bool GameIsPaused = false;
+    public static bool Standby = true;
     public GameObject PauseUI;
     public GameObject GameUI;
-    void Start()
-    {
-        Pause();
-    }
 
 
     void Update()
     {
         if (Input.anyKeyDown)
         {
-            if (GameIsPaused)
+            if (Standby)
             {
 
                 StartGame();
@@ -30,18 +26,10 @@ public class GameManager : MonoBehaviour
 
     void StartGame()
     {
+        GameObject.Find("Player").GetComponentInChildren<Animator>().SetTrigger("Start");
         PauseUI.SetActive(false);
         GameUI.SetActive(true);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
 
     }
-    void Pause()
-    {
-        
-        PauseUI.SetActive(true);
-        GameUI.SetActive(false);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
-    }
+
 }

@@ -11,13 +11,13 @@ public class Movements : MonoBehaviour
     private Rigidbody2D rb;
     public float speed;
     public float jump;
-    float longueurCheckJump = 1.5f;
+    float longueurCheckJump = 1.25f;
     public bool canJump;
     private BoxCollider2D monCollider;
     private bool invincible;
     public float Multiplicateur;
     float Initialgravity;
-
+    public ParticleSystem dust;
     private bool canSlide = true;
     private bool IsSliding;
     private float slideTimerMax = 2f;
@@ -29,17 +29,16 @@ public class Movements : MonoBehaviour
     #endregion
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        
+        dust = GetComponentInChildren<ParticleSystem>();
         sr = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         monCollider = gameObject.GetComponent<BoxCollider2D>();
         Physics2D.queriesStartInColliders = false;
         animator = GetComponentInChildren<Animator>();
         Initialgravity = rb.gravityScale;
-        //DEBUG
-        animator.SetTrigger("Start");
+        
     }
 
     // Update is called once per frame
@@ -49,11 +48,14 @@ public class Movements : MonoBehaviour
         Multiplicateur = Mathf.Clamp(Multiplicateur+Time.deltaTime/5,0,10);
 
         rb.velocity = new Vector2(speed + Multiplicateur, rb.velocity.y);
-        SoundManager.PlaySound("PlayerRun");
+
+        if(rb.velocity.x > 0.1 && Mathf.Abs(rb.velocity.y)< 0.1 && canJump)
+        {
+            dust.Play();
+        }
         //JUMP
         if (Input.GetButton("Jump") && canJump)
         {
-            SoundManager.PlaySound("PlayerJump");
             rb.gravityScale = Initialgravity;
             rb.velocity = new Vector2(rb.velocity.x, jump);
             IsSliding = false;
@@ -66,7 +68,7 @@ public class Movements : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftControl) && canSlide)
         {  
             StartCoroutine(Slide());
-            SoundManager.PlaySound("PlayerJump");
+            
         }
         /*if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -85,10 +87,8 @@ public class Movements : MonoBehaviour
         canSlide = true;
     }*/
     IEnumerator Slide()
-    {
-        
+    { 
         slideTimer = slideTimerMax;
-        
         if (!canJump)
         {
             rb.gravityScale *= 2;
@@ -114,16 +114,14 @@ public class Movements : MonoBehaviour
         hit = Physics2D.Raycast(transform.position, -Vector2.up,longueurCheckJump);
         Debug.DrawRay(transform.position, -Vector2.up * longueurCheckJump, Color.red);
 
-        if(hit)
-            Debug.Log(hit.transform.name);
-
         if (hit.collider != null)
         {
             canJump = true;
             animator.SetBool("InJump", false);
-        }
+           }
         else
         {
+          
             canJump = false;
             animator.SetBool("InJump", true);
         }
