@@ -65,6 +65,7 @@ public class Movements : MonoBehaviour
         //JUMP
         if (Input.GetButton("Jump") && canJump)
         {
+            SoundManager.PlaySound("PlayerJump");
             dust.Stop();
             rb.gravityScale = Initialgravity;
             rb.velocity = new Vector2(rb.velocity.x, jump);
