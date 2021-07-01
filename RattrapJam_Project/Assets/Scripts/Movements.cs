@@ -29,7 +29,7 @@ public class Movements : MonoBehaviour
     #endregion
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         dust = GetComponentInChildren<ParticleSystem>();
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -38,7 +38,6 @@ public class Movements : MonoBehaviour
         Physics2D.queriesStartInColliders = false;
         animator = GetComponentInChildren<Animator>();
         Initialgravity = rb.gravityScale;
-        //DEBUG
         
     }
 
@@ -88,8 +87,7 @@ public class Movements : MonoBehaviour
         canSlide = true;
     }*/
     IEnumerator Slide()
-    {
-        dust.Play();
+    { 
         slideTimer = slideTimerMax;
         if (!canJump)
         {
