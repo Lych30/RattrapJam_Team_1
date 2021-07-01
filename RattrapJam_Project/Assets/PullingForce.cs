@@ -9,6 +9,7 @@ public class PullingForce : MonoBehaviour
 
     [Range (0.0f, 100.0f)]
     [SerializeField] private float pullForce;
+    [SerializeField] private float rotationForce;
     [SerializeField] private float destroyDistance;
     #endregion
 
@@ -34,25 +35,12 @@ public class PullingForce : MonoBehaviour
 
     private void Pull()
     {
-        /*foreach(GameObject obj in pullObjectsList)
-        {
-            obj.GetComponent<Rigidbody2D>().AddForce((new Vector2(obj.transform.position.x - transform.position.x, obj.transform.position.y - transform.position.y)).normalized * pullForce);
-
-            if ((obj.transform.position - transform.position).sqrMagnitude < destroyDistance*destroyDistance)
-            {
-                pullObjectsList.Remove(obj);
-                obj.transform.position = transform.position;
-                obj.transform.parent = transform;
-                Animator anim = obj.GetComponent<Animator>();
-                anim.SetTrigger("Break");
-                Destroy(obj, 1);
-            }
-        }*/
         if (pullObjectsList.Count > 0)
         {
             pullObjectsList.ForEach(delegate (GameObject obj)
             {
                 obj.GetComponent<Rigidbody2D>().AddForce(-((new Vector2(obj.transform.position.x - transform.position.x, obj.transform.position.y - transform.position.y)).normalized) * pullForce);
+                obj.GetComponent<Rigidbody2D>().AddTorque(rotationForce, ForceMode2D.Force);
 
                 if ((obj.transform.position - transform.position).sqrMagnitude < destroyDistance * destroyDistance)
                 {
