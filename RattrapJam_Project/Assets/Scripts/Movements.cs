@@ -11,7 +11,7 @@ public class Movements : MonoBehaviour
     private Rigidbody2D rb;
     public float speed;
     public float jump;
-    float longueurCheckJump = 1.5f;
+    float longueurCheckJump = 1.1f;
     public bool canJump;
     private BoxCollider2D monCollider;
     private bool invincible;
