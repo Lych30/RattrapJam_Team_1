@@ -150,10 +150,12 @@ public class Movements : MonoBehaviour
             else
             {
                 canJump = false;
-                animator.SetBool("InJump", true);
+                //animator.SetBool("InJump", true);
             }
             
         }
+        if(rb.velocity.y>0.1)
+            animator.SetBool("InJump", true);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

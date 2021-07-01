@@ -4973,6 +4973,7 @@ MonoBehaviour:
   Multiplicateur: 0
   DustGO: {fileID: 3196774591930434364}
   DustGO2: {fileID: 9167280822671933003}
+  InitialCT: 0.2
 --- !u!61 &3632327963195085763
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5046,7 +5047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9167280822671933003}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0005, y: -0.1205, z: 0}
+  m_LocalPosition: {x: -0.1, y: -0.1205, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3632327963195085789}
