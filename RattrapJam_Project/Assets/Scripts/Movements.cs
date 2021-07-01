@@ -30,6 +30,7 @@ public class Movements : MonoBehaviour
     private SpriteRenderer sr;
 
     private Animator animator;
+    [SerializeField] GameObject Loose;
 
     [SerializeField]float InitialCT = 0.2f;
     float CT= 0;
@@ -162,6 +163,10 @@ public class Movements : MonoBehaviour
         if (collision.CompareTag("obstacle") && !invincible)
         {
             StartCoroutine(Hit());
+        }
+        if(collision.transform.name == "Tornade")
+        {
+            Loose.SetActive(true);
         }
     }
     IEnumerator Hit()
