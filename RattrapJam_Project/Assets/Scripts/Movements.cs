@@ -11,13 +11,17 @@ public class Movements : MonoBehaviour
     private Rigidbody2D rb;
     public float speed;
     public float jump;
-    float longueurCheckJump = 1.25f;
+    float longueurCheckJump = 1.1f;
     public bool canJump;
     private BoxCollider2D monCollider;
     private bool invincible;
     public float Multiplicateur;
     float Initialgravity;
-    public ParticleSystem dust;
+
+    [SerializeField] GameObject DustGO;
+    ParticleSystem dust;
+    [SerializeField] GameObject DustGO2;
+    ParticleSystem dust2;
     private bool canSlide = true;
     private bool IsSliding;
     private float slideTimerMax = 2f;
@@ -31,7 +35,8 @@ public class Movements : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dust = GetComponentInChildren<ParticleSystem>();
+        dust = DustGO.GetComponent<ParticleSystem>();
+        dust2 = DustGO2.GetComponent<ParticleSystem>();
         sr = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         monCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -52,6 +57,10 @@ public class Movements : MonoBehaviour
         if(rb.velocity.x > 0.1 && Mathf.Abs(rb.velocity.y)< 0.1 && IsSliding)
         {
             dust.Play();
+        }
+        if(rb.velocity.x > 0.1 && Mathf.Abs(rb.velocity.y) < 0.1 && !IsSliding && canJump)
+        {
+            dust2.Play();
         }
         //JUMP
         if (Input.GetButton("Jump") && canJump)
@@ -108,6 +117,7 @@ public class Movements : MonoBehaviour
         canSlide = true;
         rb.gravityScale = Initialgravity;
         animator.SetBool("Sliding", false);
+        dust.Stop();
     }
 
     void jumpCheck()
