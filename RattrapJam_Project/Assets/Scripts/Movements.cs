@@ -113,9 +113,6 @@ public class Movements : MonoBehaviour
         hit = Physics2D.Raycast(transform.position, -Vector2.up,longueurCheckJump);
         Debug.DrawRay(transform.position, -Vector2.up * longueurCheckJump, Color.red);
 
-        if(hit)
-            Debug.Log(hit.transform.name);
-
         if (hit.collider != null)
         {
             canJump = true;
