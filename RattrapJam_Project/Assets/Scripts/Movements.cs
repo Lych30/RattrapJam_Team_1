@@ -39,7 +39,7 @@ public class Movements : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         Initialgravity = rb.gravityScale;
         //DEBUG
-        animator.SetTrigger("Start");
+        
     }
 
     // Update is called once per frame
