@@ -89,7 +89,7 @@ public class Movements : MonoBehaviour
     }*/
     IEnumerator Slide()
     {
-        
+        dust.Play();
         slideTimer = slideTimerMax;
         if (!canJump)
         {
