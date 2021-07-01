@@ -9,7 +9,7 @@ public class EndScene : MonoBehaviour
     public string levelName;
     public void playGame()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("SceneKarim");
     }
     public void QuitGame()
     {
