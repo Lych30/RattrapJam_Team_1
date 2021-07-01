@@ -49,10 +49,11 @@ public class Movements : MonoBehaviour
         Multiplicateur = Mathf.Clamp(Multiplicateur+Time.deltaTime/5,0,10);
 
         rb.velocity = new Vector2(speed + Multiplicateur, rb.velocity.y);
-
+        SoundManager.PlaySound("PlayerRun");
         //JUMP
         if (Input.GetButton("Jump") && canJump)
         {
+            SoundManager.PlaySound("PlayerJump");
             rb.gravityScale = Initialgravity;
             rb.velocity = new Vector2(rb.velocity.x, jump);
             IsSliding = false;
@@ -65,7 +66,7 @@ public class Movements : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftControl) && canSlide)
         {  
             StartCoroutine(Slide());
-            
+            SoundManager.PlaySound("PlayerJump");
         }
         /*if (Input.GetKeyUp(KeyCode.LeftControl))
         {
