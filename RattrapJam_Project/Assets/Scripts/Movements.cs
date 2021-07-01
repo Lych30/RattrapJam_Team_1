@@ -49,13 +49,14 @@ public class Movements : MonoBehaviour
 
         rb.velocity = new Vector2(speed + Multiplicateur, rb.velocity.y);
 
-        if(rb.velocity.x > 0.1 && Mathf.Abs(rb.velocity.y)< 0.1 && canJump)
+        if(rb.velocity.x > 0.1 && Mathf.Abs(rb.velocity.y)< 0.1 && IsSliding)
         {
             dust.Play();
         }
         //JUMP
         if (Input.GetButton("Jump") && canJump)
         {
+            dust.Stop();
             rb.gravityScale = Initialgravity;
             rb.velocity = new Vector2(rb.velocity.x, jump);
             IsSliding = false;
@@ -87,11 +88,13 @@ public class Movements : MonoBehaviour
         canSlide = true;
     }*/
     IEnumerator Slide()
-    { 
+    {
+        dust.Play();
         slideTimer = slideTimerMax;
         if (!canJump)
         {
             rb.gravityScale *= 2;
+            dust.Stop();
         }
         canSlide = false;
         IsSliding = true;

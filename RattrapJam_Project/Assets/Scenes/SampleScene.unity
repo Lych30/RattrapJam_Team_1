@@ -2723,7 +2723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3820098598437345552, guid: 6f7fd52bf39e18d459a2769f47c04a09, type: 3}
       propertyPath: lengthInSec
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3820098598437345552, guid: 6f7fd52bf39e18d459a2769f47c04a09, type: 3}
       propertyPath: SizeModule.enabled
