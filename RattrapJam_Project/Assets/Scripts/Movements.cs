@@ -30,11 +30,15 @@ public class Movements : MonoBehaviour
     private SpriteRenderer sr;
 
     private Animator animator;
+
+    [SerializeField]float InitialCT = 0.2f;
+    float CT= 0;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
+        CT = InitialCT;
         dust = DustGO.GetComponent<ParticleSystem>();
         dust2 = DustGO2.GetComponent<ParticleSystem>();
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -63,8 +67,9 @@ public class Movements : MonoBehaviour
             dust2.Play();
         }
         //JUMP
-        if (Input.GetButton("Jump") && canJump)
+        if (Input.GetButtonDown("Jump") && canJump)
         {
+            CT = 0;
             SoundManager.PlaySound("PlayerJump");
             dust.Stop();
             rb.gravityScale = Initialgravity;
@@ -123,6 +128,7 @@ public class Movements : MonoBehaviour
 
     void jumpCheck()
     {
+       
         animator.SetFloat("VelocityY", rb.velocity.y);
         RaycastHit2D hit;
         hit = Physics2D.Raycast(transform.position, -Vector2.up,longueurCheckJump);
@@ -130,14 +136,23 @@ public class Movements : MonoBehaviour
 
         if (hit.collider != null)
         {
+            CT = InitialCT;
             canJump = true;
             animator.SetBool("InJump", false);
            }
         else
         {
-          
-            canJump = false;
-            animator.SetBool("InJump", true);
+          if(CT> 0)
+            {
+                canJump = true;
+                CT -= Time.deltaTime;
+            }
+            else
+            {
+                canJump = false;
+                animator.SetBool("InJump", true);
+            }
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
