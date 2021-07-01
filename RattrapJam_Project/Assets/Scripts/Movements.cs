@@ -134,13 +134,13 @@ public class Movements : MonoBehaviour
         sr.color = new Color(255, 255, 255, 255);
         yield return new WaitForSeconds(0.3f);
         sr.color = new Color(0, 0, 0, 0);
+        speed *= 2;
         yield return new WaitForSeconds(0.3f);
         sr.color = new Color(255, 255, 255, 255);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         sr.color = new Color(0, 0, 0, 0);
         yield return new WaitForSeconds(0.3f);
         sr.color = new Color(255, 255, 255, 255);
-        speed *= 2;
         invincible = false;
     }
 
