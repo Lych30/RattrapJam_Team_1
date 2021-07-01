@@ -16,6 +16,7 @@ public class Movements : MonoBehaviour
     private BoxCollider2D monCollider;
     private bool invincible;
     public float Multiplicateur;
+    float Initialgravity;
 
     private bool canSlide = true;
     private bool IsSliding;
@@ -30,12 +31,13 @@ public class Movements : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        
         sr = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         monCollider = gameObject.GetComponent<BoxCollider2D>();
         Physics2D.queriesStartInColliders = false;
         animator = GetComponentInChildren<Animator>();
-
+        Initialgravity = rb.gravityScale;
         //DEBUG
         animator.SetTrigger("Start");
     }
@@ -51,6 +53,7 @@ public class Movements : MonoBehaviour
         //JUMP
         if (Input.GetButton("Jump") && canJump)
         {
+            rb.gravityScale = Initialgravity;
             rb.velocity = new Vector2(rb.velocity.x, jump);
             IsSliding = false;
             animator.SetBool("Sliding", false);
@@ -84,7 +87,7 @@ public class Movements : MonoBehaviour
     {
         
         slideTimer = slideTimerMax;
-        float Initialgravity = rb.gravityScale;
+        
         if (!canJump)
         {
             rb.gravityScale *= 2;
