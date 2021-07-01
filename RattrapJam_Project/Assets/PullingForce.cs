@@ -44,14 +44,11 @@ public class PullingForce : MonoBehaviour
 
                 if ((obj.transform.position - transform.position).sqrMagnitude < destroyDistance * destroyDistance)
                 {
-                    Destroy(obj, 1);
                     int index = pullObjectsList.IndexOf(obj);
-                    Debug.Log(index);
                     pullObjectsList.RemoveAt(index);
-                    obj.transform.position = transform.position;
-                    obj.transform.parent = transform;
                     Animator anim = obj.GetComponent<Animator>();
                     anim.SetTrigger("Break");
+                    Destroy(obj, 1);
                 }
             });
         }
