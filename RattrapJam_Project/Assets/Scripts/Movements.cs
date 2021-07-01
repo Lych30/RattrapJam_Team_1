@@ -49,9 +49,11 @@ public class Movements : MonoBehaviour
         rb.velocity = new Vector2(speed + Multiplicateur, rb.velocity.y);
 
         //JUMP
-        if (Input.GetButton("Jump") && canJump && !IsSliding)
+        if (Input.GetButton("Jump") && canJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
+            IsSliding = false;
+            animator.SetBool("Sliding", false);
         }
         jumpCheck();
 
@@ -62,29 +64,32 @@ public class Movements : MonoBehaviour
             StartCoroutine(Slide());
             
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        /*if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             IsSliding = false;
             StartCoroutine(SlideCooldown());
-        }
+        }*/
 
     }
 
     //SLIDE CODE
-    IEnumerator SlideCooldown()
+    /*IEnumerator SlideCooldown()
     {
         canSlide = false;
         yield return new WaitForSeconds(1f);
-        slideTimer = slideTimerMax;
+        
         canSlide = true;
-    }
+    }*/
     IEnumerator Slide()
     {
+        
+        slideTimer = slideTimerMax;
         float Initialgravity = rb.gravityScale;
         if (!canJump)
         {
             rb.gravityScale *= 2;
         }
+        canSlide = false;
         IsSliding = true;
         animator.SetBool("Sliding", true);
         monCollider.size = new Vector2(0.1106481f, 0.0633854f);
@@ -102,8 +107,11 @@ public class Movements : MonoBehaviour
     {
         animator.SetFloat("VelocityY", rb.velocity.y);
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(transform.position, -Vector2.up, monCollider.bounds.extents.y * longueurCheckJump);
-        Debug.DrawRay(transform.position, -Vector2.up * monCollider.bounds.extents.y * longueurCheckJump, Color.red);
+        hit = Physics2D.Raycast(transform.position, -Vector2.up,longueurCheckJump);
+        Debug.DrawRay(transform.position, -Vector2.up * longueurCheckJump, Color.red);
+
+        if(hit)
+            Debug.Log(hit.transform.name);
 
         if (hit.collider != null)
         {
@@ -128,7 +136,6 @@ public class Movements : MonoBehaviour
         animator.SetTrigger("Hit");
         invincible = true;
         speed *= 0.5f;
-        Debug.Log(sr);
         sr.color = new Color(0, 0, 0, 0);
         yield return new WaitForSeconds(0.3f);
         sr.color = new Color(255, 255, 255, 255);
@@ -143,6 +150,10 @@ public class Movements : MonoBehaviour
         sr.color = new Color(255, 255, 255, 255);
         invincible = false;
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        //Gizmos.DrawLine(transform.position,);
+    }
 
 }
