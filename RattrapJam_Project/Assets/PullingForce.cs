@@ -39,16 +39,24 @@ public class PullingForce : MonoBehaviour
         {
             pullObjectsList.ForEach(delegate (GameObject obj)
             {
-                obj.GetComponent<Rigidbody2D>().AddForce(-((new Vector2(obj.transform.position.x - transform.position.x, obj.transform.position.y - transform.position.y)).normalized) * pullForce);
-                obj.GetComponent<Rigidbody2D>().AddTorque(rotationForce, ForceMode2D.Force);
-
-                if ((obj.transform.position - transform.position).sqrMagnitude < destroyDistance * destroyDistance)
+                if (obj)
                 {
-                    int index = pullObjectsList.IndexOf(obj);
-                    pullObjectsList.RemoveAt(index);
-                    Animator anim = obj.GetComponent<Animator>();
-                    anim.SetTrigger("Break");
-                    Destroy(obj, 1);
+                    obj.GetComponent<DestructibleObjects>().destroyTime += -Time.deltaTime;
+                    float objDestroyTime = obj.GetComponent<DestructibleObjects>().destroyTime;
+                    obj.GetComponent<Rigidbody2D>().AddForce(-((new Vector2(obj.transform.position.x - transform.position.x, obj.transform.position.y - transform.position.y)).normalized) * pullForce);
+                    obj.GetComponent<Rigidbody2D>().AddTorque(rotationForce, ForceMode2D.Force);
+
+                    if (objDestroyTime <= 0)
+                    {
+                        int index = pullObjectsList.IndexOf(obj);
+                        pullObjectsList[index] = null;
+                        Destroy(obj);
+                    }
+                    else if (objDestroyTime <= 1)
+                    {
+                        Animator anim = obj.GetComponent<Animator>();
+                        anim.SetTrigger("Break");
+                    }
                 }
             });
         }
