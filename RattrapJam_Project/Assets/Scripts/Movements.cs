@@ -44,7 +44,7 @@ public class Movements : MonoBehaviour
     void Update()
     {
         //CLAMP DU MULTIPLICATEUR
-        Multiplicateur = Mathf.Clamp(Multiplicateur+Time.deltaTime/20,0,10);
+        Multiplicateur = Mathf.Clamp(Multiplicateur+Time.deltaTime/5,0,10);
 
         rb.velocity = new Vector2(speed + Multiplicateur, rb.velocity.y);
 
