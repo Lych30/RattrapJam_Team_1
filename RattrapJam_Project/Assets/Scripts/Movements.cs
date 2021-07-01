@@ -164,7 +164,7 @@ public class Movements : MonoBehaviour
         {
             StartCoroutine(Hit());
         }
-        if(collision.transform.name == "Tornade")
+        if(collision.transform.tag == "Tornade")
         {
             Loose.SetActive(true);
         }
